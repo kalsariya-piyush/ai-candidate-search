@@ -1,9 +1,8 @@
-import { Campaign } from '@/lib/api';
-import { Mail, Users, Eye, MessageSquare, MoreVertical, Play, Pause, Trash2 } from 'lucide-react';
-import { Button } from './ui/button';
-import { campaignsApi } from '@/lib/api';
+import { Campaign, campaignsApi } from '@/lib/api';
 import { useMutation } from '@tanstack/react-query';
+import { Eye, Mail, MessageSquare, MoreVertical, Pause, Play, Trash2, Users } from 'lucide-react';
 import { useState } from 'react';
+import { Button } from './ui/button';
 
 interface CampaignCardProps {
   campaign: Campaign;
@@ -42,7 +41,9 @@ export default function CampaignCard({ campaign, onUpdate }: CampaignCardProps) 
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-2">
             <h3 className="text-xl font-semibold">{campaign.name}</h3>
-            <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(campaign.status)}`}>
+            <span
+              className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(campaign.status)}`}
+            >
               {campaign.status}
             </span>
           </div>
@@ -111,7 +112,9 @@ export default function CampaignCard({ campaign, onUpdate }: CampaignCardProps) 
             <span className="text-xs font-medium">Opened</span>
           </div>
           <p className="text-2xl font-bold">{campaign.stats?.opened || 0}</p>
-          <p className="text-xs text-muted-foreground">{campaign.stats?.openRate?.toFixed(1) || 0}%</p>
+          <p className="text-xs text-muted-foreground">
+            {campaign.stats?.openRate?.toFixed(1) || 0}%
+          </p>
         </div>
 
         <div>
@@ -120,7 +123,9 @@ export default function CampaignCard({ campaign, onUpdate }: CampaignCardProps) 
             <span className="text-xs font-medium">Replied</span>
           </div>
           <p className="text-2xl font-bold">{campaign.stats?.replied || 0}</p>
-          <p className="text-xs text-muted-foreground">{campaign.stats?.replyRate?.toFixed(1) || 0}%</p>
+          <p className="text-xs text-muted-foreground">
+            {campaign.stats?.replyRate?.toFixed(1) || 0}%
+          </p>
         </div>
 
         <div>
@@ -128,7 +133,7 @@ export default function CampaignCard({ campaign, onUpdate }: CampaignCardProps) 
             <Users className="h-4 w-4" />
             <span className="text-xs font-medium">Recipients</span>
           </div>
-          <p className="text-2xl font-bold">{campaign.recipients?.length || 0}</p>
+          <p className="text-2xl font-bold">{campaign?.recipients?.length || 0}</p>
         </div>
       </div>
 
@@ -136,7 +141,7 @@ export default function CampaignCard({ campaign, onUpdate }: CampaignCardProps) 
       <div className="mb-6">
         <div className="flex justify-between text-xs text-muted-foreground mb-2">
           <span className="font-medium">Delivery Progress</span>
-          <span className="font-semibold">{campaign.stats?.deliveryRate?.toFixed(0) || 0}%</span>
+          <span className="font-semibold">{campaign?.stats?.deliveryRate?.toFixed(0) || 0}%</span>
         </div>
         <div className="h-2 bg-muted rounded-full overflow-hidden">
           <div

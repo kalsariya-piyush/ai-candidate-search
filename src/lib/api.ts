@@ -75,6 +75,7 @@ export interface Campaign {
     openRate: number;
     replyRate: number;
   };
+  recipients?: string[];
 }
 
 export interface CampaignStep {
@@ -88,35 +89,27 @@ export interface CampaignStep {
 export const candidatesApi = {
   search: (query: string, filters?: SearchFilters, page = 1, limit = 12) =>
     api.post<SearchResponse>('/api/candidates/search', { query, filters, page, limit }),
-  
-  getById: (id: string) =>
-    api.get<Candidate>(`/api/candidates/${id}`),
-  
-  shortlist: (id: string, liked = true) =>
-    api.post(`/api/candidates/${id}/shortlist`, { liked }),
-  
-  unlock: (id: string) =>
-    api.get(`/api/candidates/${id}/unlock`),
-  
-  getShortlisted: () =>
-    api.get('/api/candidates/shortlisted/list'),
+
+  getById: (id: string) => api.get<Candidate>(`/api/candidates/${id}`),
+
+  shortlist: (id: string, liked = true) => api.post(`/api/candidates/${id}/shortlist`, { liked }),
+
+  unlock: (id: string) => api.get(`/api/candidates/${id}/unlock`),
+
+  getShortlisted: () => api.get('/api/candidates/shortlisted/list'),
 };
 
 export const campaignsApi = {
-  list: () =>
-    api.get<Campaign[]>('/api/campaigns'),
-  
+  list: () => api.get<Campaign[]>('/api/campaigns'),
+
   create: (data: { name: string; type: string; steps: CampaignStep[] }) =>
     api.post<Campaign>('/api/campaigns', data),
-  
-  update: (id: string, data: Partial<Campaign>) =>
-    api.put<Campaign>(`/api/campaigns/${id}`, data),
-  
-  delete: (id: string) =>
-    api.delete(`/api/campaigns/${id}`),
-  
-  getAnalytics: (id: string) =>
-    api.get(`/api/campaigns/${id}/analytics`),
+
+  update: (id: string, data: Partial<Campaign>) => api.put<Campaign>(`/api/campaigns/${id}`, data),
+
+  delete: (id: string) => api.delete(`/api/campaigns/${id}`),
+
+  getAnalytics: (id: string) => api.get(`/api/campaigns/${id}/analytics`),
 };
 
 export default api;
